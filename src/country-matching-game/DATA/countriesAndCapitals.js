@@ -1,0 +1,22 @@
+export const countriesAndCapitals = {
+    "Afghanistan": "Kabul",
+    "Argentina": "Buenos Aires",
+    "Australia": "Canberra",
+    "Brazil": "Brasília",
+    "Canada": "Ottawa",
+    "China": "Beijing",
+    "Egypt": "Cairo",
+    "France": "Paris",
+    "Germany": "Berlin",
+    "India": "New Delhi",
+    "Indonesia": "Jakarta",
+    "Italy": "Rome",
+    "Japan": "Tokyo",
+    "Mexico": "Mexico City",
+    "Nigeria": "Abuja",
+    "Pakistan": "Islamabad",
+    "Russia": "Moscow",
+    "South Africa": "Pretoria",
+    "United Kingdom": "London",
+    "United States": "Washington, D.C."
+};
