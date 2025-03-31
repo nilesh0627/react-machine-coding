@@ -1,0 +1,34 @@
+[
+    {
+        "type": "folder",
+        "name": "node_modules"
+    },
+    {
+        "type": "folder",
+        "name": "public"
+    },
+    {
+        "type": "folder",
+        "name": "src",
+        "children": [
+            {
+                "type": "folder",
+                "name": "assets"
+            },
+            {
+                "type": "folder",
+                "name": "components",
+                "children": [
+                    {
+                        "type": "file",
+                        "name": "App.jsx"
+                    },
+                    {
+                        "type": "file",
+                        "name": "NavBar.jsx"
+                    }
+                ]
+            }
+        ]
+    }
+]

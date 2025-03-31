@@ -8,6 +8,7 @@ function App() {
                     <li><Link to='/country-matching-game'>Country Mathcing Game</Link></li>
                     <li><Link to='/otp-verification'>OTP Verification</Link></li>
                     <li><Link to='/progress-bars'>Progress Bars</Link></li>
+                    <li><Link to='/file-explorer'>File Explorer</Link></li>
                 </ol>
             </nav>
         </main>
