@@ -1,23 +1,35 @@
 [
     {
         "type": "folder",
-        "name": "node_modules"
+        "name": "node_modules",
+        "state": "collapse"
     },
     {
         "type": "folder",
-        "name": "public"
+        "name": "public",
+        "state": "collapse",
+        "children": [
+            {
+                "type": "file",
+                "name": "nilesh.svg"
+            }
+        ]
     },
     {
         "type": "folder",
         "name": "src",
+        "state": "expand",
         "children": [
             {
                 "type": "folder",
-                "name": "assets"
+                "name": "assets",
+                "state": "collapse",
+                "children": []
             },
             {
                 "type": "folder",
                 "name": "components",
+                "state": "collapse",
                 "children": [
                     {
                         "type": "file",
@@ -30,5 +42,9 @@
                 ]
             }
         ]
+    },
+    {
+        "type": "file",
+        "name": "package.json"
     }
 ]

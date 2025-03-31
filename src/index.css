@@ -75,38 +75,3 @@ button:focus-visible {
 /* main nav a {
   display: block;
 } */
-
-/* otp-verification */
-input {
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  font-size: 40px;
-  margin: 5px;
-}
-
-/* Progress Bars */
-.progress-bars button {
-  margin: 0 10px;
-}
-
-.progress-bars .bar-container {
-  width: 400px;
-  height: 4px;
-  background-color: lightgray;
-  margin: 10px 0;
-}
-
-.progress-bars .bar-container .bar-contents {
-  background-color: green;
-  height: 100%;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition-property: transform;
-  transition-timing-function: linear;
-  transition-duration: 2000ms;
-}
-
-.progress-bars .bar-container .bar-filled {
-  transform: scaleX(1);
-}
