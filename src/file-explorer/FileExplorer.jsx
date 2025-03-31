@@ -19,13 +19,13 @@ function FileExplorer() {
                     return { ...explorerItem, state: toggleState(explorerItem.state) }
                 else if (operation === 'add') {
                     if (info.type === 'file')
-                        return { ...explorerItem, children: [...explorerItem.children, info] }
+                        return { ...explorerItem, children: [info, ...explorerItem.children] }
                     else if (info.type === 'folder')
                         return {
-                            ...explorerItem, children: [...explorerItem?.children, {
+                            ...explorerItem, children: [{
                                 ...info, children: [],
                                 state: "collapse"
-                            }]
+                            }, ...explorerItem?.children]
                         }
                 }
             }
@@ -86,7 +86,9 @@ const Folder = ({ name, handleFileExplorer, state }) => {
         setNewName('');
     }
     return <>
-        <div key={name} className='folder' onClick={() => handleFileExplorer({ name, operation: 'toggle' })}> {state === 'expand' ? '-' : '+'} {name} <AiOutlineFileAdd size={15} onClick={(e) => handleAdd(e, 'file')} />
+        <div key={name} className='folder' onClick={() => handleFileExplorer({ name, operation: 'toggle' })}>
+            <div>{state === 'expand' ? '-' : '+'} {name}</div>
+            <AiOutlineFileAdd size={15} onClick={(e) => handleAdd(e, 'file')} />
             <AiOutlineFolderAdd size={15} onClick={(e) => handleAdd(e, 'folder')} />
         </div>
         {inputInfo.visible && <AddInput onBlur={addOnBlur} />}
