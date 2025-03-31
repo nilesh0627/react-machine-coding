@@ -1,38 +1,39 @@
-import { useRef, useState } from "react";
-import '../App.css'
+import { useState } from "react";
+import "../App.css";
 
 function ProgressBars({ timer = 2000 }) {
     const [bars, setBars] = useState([]);
-    const divRefs = useRef([])
 
     const addBar = () => {
-        const newBarIndex = bars.length;
-        setBars((prevBars) => {
-            const updatedBars = [...prevBars, newBarIndex];
-            setTimeout(() => {
-                divRefs.current[newBarIndex]?.classList.add('bar-filled');
-            }, 0);
-            return updatedBars;
-        })
-    }
+        const newBar = { id: bars.length, progress: 0 };
+        setBars((prevBars) => [...prevBars, newBar]);
 
-    const clearBar = () => {
-        divRefs.current.forEach((div) => {
-            div.classList.remove('bar-filled');
-            div.style.width = '0%';
-        })
-    }
+        // Simulate progress
+        setTimeout(() => {
+            setBars((prevBars) =>
+                prevBars.map((bar) =>
+                    bar.id === newBar.id ? { ...bar, progress: 1 } : bar
+                )
+            );
+        }, 0);
+    };
 
     return (
         <section className="progress-bars">
             <button onClick={addBar}>Add</button>
-            <button onClick={clearBar}>Clear</button>
-            {bars.map((item, index) => <div key={index} className="bar-container">
-                <div ref={div => divRefs.current[index] = div} className="bar-contents"></div>
-            </div>)
-            }
-        </section >
-    )
+            {bars.map((bar) => (
+                <div key={bar.id} className="bar-container">
+                    <div
+                        className="bar-contents"
+                        style={{
+                            transform: `scaleX(${bar.progress})`,
+                            transition: `transform ${timer}ms ease-in-out`,
+                        }}
+                    ></div>
+                </div>
+            ))}
+        </section>
+    );
 }
 
 export default ProgressBars;
