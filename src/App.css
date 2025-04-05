@@ -103,14 +103,15 @@ input {
 
 .parentContainer {
   text-align: left;
+  padding-left: 15px;
 }
 
-.parentContainer .folder {
+/* .parentContainer .folder {
   cursor: pointer;
   display: flex;
   align-items: center;
   column-gap: 5px;
-}
+} */
 
 .addInput {
   display: grid;

@@ -15,16 +15,13 @@ function FileExplorer() {
         return fileExplorerData.map(explorerItem => {
             if (explorerItem.name === name) {
                 const { operation = '', info = {} } = extraInfo
-                if (operation === 'toggle')
-                    return { ...explorerItem, state: toggleState(explorerItem.state) }
-                else if (operation === 'add') {
+                if (operation === 'add') {
                     if (info.type === 'file')
                         return { ...explorerItem, children: [info, ...explorerItem.children] }
                     else if (info.type === 'folder')
                         return {
                             ...explorerItem, children: [{
                                 ...info, children: [],
-                                state: "collapse"
                             }, ...explorerItem?.children]
                         }
                 }
@@ -35,23 +32,10 @@ function FileExplorer() {
             else return explorerItem
         })
     }
-    const toggleState = (state) => state === 'expand' ? 'collapse' : 'expand'
     const handleFileExplorer = ({ name, ...extraInfo }) => {
         const tempFileExplorerData = structuredClone(fileExplorerData)
         const newFileExplorerData = updateFileExplorer({ fileExplorerData: tempFileExplorerData, name, ...extraInfo })
         setFileExplorerData(newFileExplorerData);
-        // switch (type) {
-        //     case 'add':
-        //         break;
-        //     case 'rename':
-        //         break;
-        //     case 'delete':
-        //         break;
-        //     case 'toggle':
-        //         break;
-        //     default:
-        //         break;
-        // }
     }
 
     return (
@@ -74,10 +58,11 @@ const AddInput = ({ onBlur }) => {
     )
 }
 
-const Folder = ({ name, handleFileExplorer, state }) => {
+const Folder = ({ name, handleFileExplorer, isExpanded, setIsExpanded }) => {
     const [inputInfo, setInputInfo] = useState({ visible: false, type: '' });
     const handleAdd = (e, type) => {
         e.stopPropagation();
+        setIsExpanded(isExpanded => ({ ...isExpanded, [name]: true }))
         setInputInfo({ visible: true, type })
     }
     const addOnBlur = (newName, setNewName) => {
@@ -85,32 +70,30 @@ const Folder = ({ name, handleFileExplorer, state }) => {
         setInputInfo({ visible: false, type: '' });
         setNewName('');
     }
-    return <>
-        <div key={name} className='folder' onClick={() => handleFileExplorer({ name, operation: 'toggle' })}>
-            <div>{state === 'expand' ? '-' : '+'} {name}</div>
-            <AiOutlineFileAdd size={15} onClick={(e) => handleAdd(e, 'file')} />
-            <AiOutlineFolderAdd size={15} onClick={(e) => handleAdd(e, 'folder')} />
-        </div>
+    return <> <span onClick={() => setIsExpanded(isExpanded => ({ ...isExpanded, [name]: !isExpanded[name] }))}>
+        <span >{isExpanded?.[name] ? '-' : '+'}</span>
+        <span key={name} className='folder'>{name}</span>
+    </span>
+        <AiOutlineFileAdd size={15} onClick={(e) => handleAdd(e, 'file')} />
+        <AiOutlineFolderAdd size={15} onClick={(e) => handleAdd(e, 'folder')} />
         {inputInfo.visible && <AddInput onBlur={addOnBlur} />}
     </>
+
 }
 
-function ManageExplorer({ fileExplorerData, handleFileExplorer, depth = 0 }) {
+function ManageExplorer({ fileExplorerData, handleFileExplorer }) {
+    const [isExpanded, setIsExpanded] = useState({});
     return (
-        <div key={`parent-${depth}`} className='parentContainer' style={{ paddingLeft: depth + 'px' }}>
+        <div className='parentContainer'>
             {
-                fileExplorerData.map(({ type, name, state = 'collapse', children = [] }) => {
-                    switch (type) {
-                        case 'file':
-                            return <div key={name} className='file'>{name}</div>
-                        case 'folder':
-                            return <div className='parentContainer'>
-                                <Folder name={name} handleFileExplorer={handleFileExplorer} state={state} />
-                                {
-                                    children.length > 0 && state === 'expand' && <ManageExplorer fileExplorerData={children} handleFileExplorer={handleFileExplorer} depth={depth + 20} />
-                                }
-                            </div>
-                    }
+                fileExplorerData.map(({ type, name, children = [] }) => {
+                    return <div key={name}>
+                        {type === 'file' && <span key={name} className='file'>{name}</span>}
+                        {type === 'folder' && <Folder name={name} handleFileExplorer={handleFileExplorer} isExpanded={isExpanded} setIsExpanded={setIsExpanded} />}
+                        {
+                            children.length > 0 && isExpanded?.[name] && <ManageExplorer fileExplorerData={children} handleFileExplorer={handleFileExplorer} />
+                        }
+                    </div>
                 })
             }
         </div>

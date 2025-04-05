@@ -1,13 +1,11 @@
 [
     {
         "type": "folder",
-        "name": "node_modules",
-        "state": "collapse"
+        "name": "node_modules"
     },
     {
         "type": "folder",
         "name": "public",
-        "state": "collapse",
         "children": [
             {
                 "type": "file",
@@ -18,18 +16,15 @@
     {
         "type": "folder",
         "name": "src",
-        "state": "expand",
         "children": [
             {
                 "type": "folder",
                 "name": "assets",
-                "state": "collapse",
                 "children": []
             },
             {
                 "type": "folder",
                 "name": "components",
-                "state": "collapse",
                 "children": [
                     {
                         "type": "file",
